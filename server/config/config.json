@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "root",
+    "password": "password",
+    "database": "chatroom",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "operatorsAliases": "Sequelize.Op"
+  },
+  "test": {
+    "username": "root",
+    "password": "password",
+    "database": "chatroom_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "operatorsAliases": "Sequelize.Op"
+  },
+  "production": {
+    "use_env_variable": "DATABASE_URL",
+    "dialect": "postgres",
+    "protocol": "postgres",
+    "dialectOptions": {
+      "ssl": true
+    }
+  }
+}
