@@ -8,15 +8,17 @@ const cors = require('cors')
 
 // 開啟跨網域連線
 app.use(cors())
+// 非上線模式，存取 env
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
-
+// 存取 database model
 const db = require('./models')
-
+// to set body-parser & methodOverride
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 app.use(methodOverride('_method'))
-
+// initialize session
 app.use(
   session({
     secret: 'chatroom',
@@ -26,6 +28,10 @@ app.use(
     saveUninitialized: true
   })
 )
+// setup passport
+const passport = require('./config/passport')
+app.use(passport.initialize())
+app.use(passport.session())
 
 // 連結後端 api 路由
 require('./routes/')(app)
