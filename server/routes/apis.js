@@ -1,9 +1,7 @@
 const express = require('express')
 const router = express.Router()
+const userController = require('../controller/api/userController')
 
-router.use('/public-chatroom', (req, res) => {
-  res.send('This is "public-chatroom" page.')
-})
-//router.get('/public-chatroom',)
+router.get('/public-chatroom', userController.signIn)
 
 module.exports = router
