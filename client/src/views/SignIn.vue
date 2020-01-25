@@ -91,7 +91,7 @@ export default {
         /* 將資料傳到 Vuex 中
         this.$store.commit("setCurrentUser", data.user);*/
         // 成功登入後轉址到餐聽首頁
-        this.$router.push("/about");
+        this.$router.push("/chatroom");
       } catch (err) {
         this.isProcessing = false;
         this.password = "";

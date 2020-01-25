@@ -7,12 +7,17 @@ const routes = [
   {
     path: '/',
     name: 'root',
-    redirect: '/signIn'
+    redirect: '/signin'
   },
   {
-    path: '/signIn',
+    path: '/signin',
     name: 'signIn',
     component: () => import('../views/SignIn')
+  },
+  {
+    path: '/chatroom',
+    name: 'chatRoom',
+    component: () => import('../views/Chatroom')
   },
   {
     path: '*',
