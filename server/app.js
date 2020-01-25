@@ -5,7 +5,6 @@ const methodOverride = require('method-override')
 const app = express()
 const port = process.env.PORT || 3000
 const cors = require('cors')
-
 // 開啟跨網域連線
 app.use(cors())
 // 非上線模式，存取 env
@@ -32,7 +31,6 @@ app.use(
 const passport = require('./config/passport')
 app.use(passport.initialize())
 app.use(passport.session())
-
 // 連結後端 api 路由
 require('./routes/')(app)
 
