@@ -6,17 +6,23 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
+    name: 'root',
+    redirect: '/signIn'
+  },
+  {
+    path: '/signIn',
     name: 'signIn',
     component: () => import('../views/SignIn')
   },
   {
-    path: '/about',
-    name: 'about',
-    component: () => import('../views/About.vue')
+    path: '*',
+    name: 'not-found',
+    component: () => import('../views/NotFound')
   }
 ]
 
 const router = new VueRouter({
+  linkExactActiveClass: 'active',
   routes
 })
 
