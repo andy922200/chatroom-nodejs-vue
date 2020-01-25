@@ -29,6 +29,27 @@ let userController = {
         }
       })
     })
+  },
+  getCurrentUser: (req, res) => {
+    return res.json({
+      status: 'success',
+      message: 'OK'
+    })
+  },
+  getUser: (req, res) => {
+    User.findByPk(req.params.id).then(user => {
+      if (!user) return res.status(401).json({ status: 'error', message: 'No user was found.' })
+      return res.json({
+        status: 'success',
+        message: 'OK',
+        user: {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          isAdmin: user.isAdmin
+        }
+      })
+    })
   }
 }
 
