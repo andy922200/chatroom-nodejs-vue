@@ -16,7 +16,7 @@ let userController = {
         return res.status(401).json({ status: 'error', message: 'The password did not match.' })
       }
       var payload = { id: user.id }
-      var token = jwt.sign(payload, process.env.JWT_SECRET)
+      var token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '24h' })
       return res.json({
         status: 'success',
         message: 'OK',
