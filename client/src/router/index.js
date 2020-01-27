@@ -15,6 +15,11 @@ const routes = [
     component: () => import('../views/SignIn')
   },
   {
+    path: '/signup',
+    name: 'signUp',
+    component: () => import('../views/SignUp')
+  },
+  {
     path: '/chatroom',
     name: 'chatRoom',
     component: () => import('../views/Chatroom')
