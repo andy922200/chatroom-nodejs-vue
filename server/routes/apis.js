@@ -14,8 +14,10 @@ const authenticatedAdmin = (req, res, next) => {
   }
 }
 
-router.get(`/get_current_user`, authenticated, userController.getCurrentUser) //for token validation
+// register, logIn, token validation
+router.get(`/get_current_user`, authenticated, userController.getCurrentUser)
 router.get(`/users/:id`, authenticated, userController.getUser)
-router.post('/signIn', userController.signIn)
+router.post('/signin', userController.signIn)
+router.post('/signup', userController.signUp)
 
 module.exports = router
