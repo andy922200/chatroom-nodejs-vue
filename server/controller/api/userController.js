@@ -26,7 +26,8 @@ let userController = {
           name: user.name,
           email: user.email,
           isAdmin: user.isAdmin
-        }
+        },
+        isAuthenticated: true
       })
     })
   },
