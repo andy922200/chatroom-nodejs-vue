@@ -52,9 +52,18 @@ let userController = {
       })
   },
   getCurrentUser: (req, res) => {
+    // req.user is returned by passport-jwt
+    const { user } = req
     return res.json({
       status: 'success',
-      message: 'OK'
+      message: 'OK',
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        isAdmin: user.isAdmin
+      },
+      isAuthenticated: true
     })
   },
   getUser: (req, res) => {
@@ -68,7 +77,8 @@ let userController = {
           name: user.name,
           email: user.email,
           isAdmin: user.isAdmin
-        }
+        },
+        isAuthenticated: true
       })
     })
   }
