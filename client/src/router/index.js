@@ -4,6 +4,16 @@ import store from '../store'
 
 Vue.use(VueRouter)
 
+// validation for admin
+const authorizedAdmin = (to, from, next) => {
+  const currentUser = store.state.currentUser
+  if (currentUser && !currentUser.isAdmin) {
+    next('/404')
+    return
+  }
+  next()
+}
+
 const routes = [
   {
     path: '/',
@@ -26,6 +36,17 @@ const routes = [
     component: () => import('../views/Chatroom')
   },
   {
+    path: '/admin/users',
+    name: 'adminUsers',
+    component: () => import('../views/AdminUsers'),
+    beforeEnter: authorizedAdmin
+  },
+  {
+    path: '/404',
+    name: '404-not-found',
+    component: () => import('../views/NotFound')
+  },
+  {
     path: '*',
     name: 'not-found',
     component: () => import('../views/NotFound')
@@ -37,8 +58,14 @@ const router = new VueRouter({
   routes
 })
 
-router.beforeEach((to, from, next) => {
-  store.dispatch('fetchCurrentUser')
+router.beforeEach(async (to, from, next) => {
+  const token = localStorage.getItem('token')
+  let isAuthenticated = false
+  if (token) {
+    isAuthenticated = await store.dispatch('fetchCurrentUser')
+    console.log("isAuthenticated", isAuthenticated)
+  }
+
   next()
 })
 
