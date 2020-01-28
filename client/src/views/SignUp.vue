@@ -98,7 +98,7 @@ export default {
       passwordCheck: "",
       isProcessing: false,
       passwordHint: false,
-      passwordCHeckHint: false
+      passwordCheckHint: false
     };
   },
   methods: {
@@ -127,6 +127,15 @@ export default {
           this.isProcessing = false;
           return;
         }
+        if (this.password.length < 8) {
+          Toast.fire({
+            icon: "warning",
+            title: "密碼長度需大於8"
+          });
+          this.passwordCheck = "";
+          this.isProcessing = false;
+          return;
+        }
         const { data, statusText } = await authorizationAPI.signUp({
           name: this.name,
           email: this.email,
@@ -146,7 +155,7 @@ export default {
       } catch (err) {
         Toast.fire({
           icon: "error",
-          title: "無法建立新使用者，請稍後再試"
+          title: err
         });
         this.isProcessing = false;
       }
