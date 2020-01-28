@@ -82,14 +82,13 @@ export default {
         });
 
         const { data, statusText } = res;
-
         if (statusText !== "OK" || data.status !== "success") {
           throw new Error(statusText);
         }
         /* store token in localStorage */
         localStorage.setItem("token", data.token);
-        /* 將資料傳到 Vuex 中
-        this.$store.commit("setCurrentUser", data.user);*/
+        /* 將資料傳到 Vuex 中 */
+        this.$store.commit("setCurrentUser", data.user);
         // redirect to chatroom
         this.$router.push("/chatroom");
       } catch (err) {
