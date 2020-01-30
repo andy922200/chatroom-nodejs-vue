@@ -22,6 +22,7 @@ router.post('/signin', userController.signIn)
 router.post('/signup', userController.signUp)
 // admin
 router.put('/admin/users/:id/put-role', authenticated, authenticatedAdmin, adminController.putRole)
+router.delete('/admin/users/:id', authenticated, authenticatedAdmin, adminController.deleteUser)
 router.get(`/admin/users`, authenticated, authenticatedAdmin, adminController.getUsers)
 
 module.exports = router

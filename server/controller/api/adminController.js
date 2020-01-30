@@ -42,6 +42,17 @@ let adminController = {
           })
       }
     })
+  },
+  deleteUser: (req, res) => {
+    User.findByPk(req.params.id)
+      .then(user => {
+        if (!user) res.status(401).json({ status: 'error', message: 'No user was found.' })
+        user.destroy().then(user => {
+          return res.json({
+            status: 'success', message: `${user.name} was deleted successfully.`
+          })
+        })
+      })
   }
 }
 
