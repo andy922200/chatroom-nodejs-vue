@@ -9,14 +9,16 @@
       <thead class="thead-light">
         <tr>
           <th scope="col">#</th>
+          <th scope="col">Name</th>
           <th scope="col">Email</th>
-          <th scope="col">Role</th>
+          <th scope="col" width="30">Role</th>
           <th scope="col" width="280">Action</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="user in users" :key="user.id">
           <th scope="row">{{user.id}}</th>
+          <td>{{user.name}}</td>
           <td>{{user.email}}</td>
           <td v-if="user.isAdmin">Admin</td>
           <td v-else>User</td>
@@ -110,7 +112,16 @@ export default {
     },
     async deleteUser({ userId }) {
       try {
-        console.log(userId);
+        const res = await adminAPI.deleteUser({ userId });
+        const { statusText } = res;
+        if (statusText !== "OK") {
+          throw new Error(statusText);
+        }
+        this.users = this.users.filter(user => user.id !== userId);
+        Toast.fire({
+          icon: "success",
+          title: `刪除成功`
+        });
       } catch (err) {
         Toast.fire({
           icon: "error",
@@ -124,3 +135,22 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.btn-outline-secondary {
+  padding-right: 18px;
+  padding-left: 18px;
+}
+@media screen and (max-width: 767px) {
+  .btn-outline-primary {
+    font-size: 16px;
+    padding-right: 2px;
+    padding-left: 2px;
+  }
+  .btn-outline-secondary {
+    font-size: 16px;
+    padding-right: 6px;
+    padding-left: 6px;
+  }
+}
+</style>

@@ -12,5 +12,10 @@ export default {
     return apiHelper.put(`/admin/users/${userId}/put-role`, {}, {
       headers: { Authorization: `Bearer ${getToken()}` }
     })
+  },
+  deleteUser({ userId }) {
+    return apiHelper.delete(`/admin/users/${userId}`, {
+      headers: { Authorization: `Bearer ${getToken()}` }
+    })
   }
 }
