@@ -54,5 +54,10 @@ export default {
     margin-right: 56px;
   }
 }
+@media (min-width: 992px) {
+  #navbarSupportedContent h4 {
+    margin-right: 10px;
+  }
+}
 </style>
 
