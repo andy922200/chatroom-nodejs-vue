@@ -42,6 +42,18 @@ const routes = [
     beforeEnter: authorizedAdmin
   },
   {
+    path: '/admin/users/create',
+    name: 'adminCreateUser',
+    component: () => import('../views/AdminCreateUser'),
+    beforeEnter: authorizedAdmin
+  },
+  {
+    path: '/admin/users/:id',
+    name: 'adminEditUser',
+    component: () => import('../views/AdminEditUser'),
+    beforeEnter: authorizedAdmin
+  },
+  {
     path: '/404',
     name: '404-not-found',
     component: () => import('../views/NotFound')
