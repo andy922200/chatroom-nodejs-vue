@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const passport = require('../config/passport')
+const multer = require('multer')
+const upload = multer()
 const userController = require('../controller/api/userController')
 const adminController = require('../controller/api/adminController')
 
@@ -21,6 +23,9 @@ router.get(`/users/:id`, authenticated, userController.getUser)
 router.post('/signin', userController.signIn)
 router.post('/signup', userController.signUp)
 // admin
+router.get('/admin/users/:id', authenticated, authenticatedAdmin, adminController.getUser)
+router.put('/admin/users/edit/:id', authenticated, authenticatedAdmin, upload.array(), adminController.putUser)
+router.post('/admin/users/create', authenticated, authenticatedAdmin, upload.array(), adminController.createUser)
 router.put('/admin/users/:id/put-role', authenticated, authenticatedAdmin, adminController.putRole)
 router.delete('/admin/users/:id', authenticated, authenticatedAdmin, adminController.deleteUser)
 router.get(`/admin/users`, authenticated, authenticatedAdmin, adminController.getUsers)
