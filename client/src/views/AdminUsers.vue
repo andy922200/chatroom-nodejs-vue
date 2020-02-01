@@ -5,6 +5,12 @@
     <br />
     <br />
     <br />
+    <div class="row justify-content-center">
+      <router-link to="/admin/users/create">
+        <button type="submit" class="btn btn-outline-primary">Add User</button>
+      </router-link>
+    </div>
+    <br />
     <table class="table">
       <thead class="thead-light">
         <tr>
@@ -23,7 +29,9 @@
           <td v-if="user.isAdmin">Admin</td>
           <td v-else>User</td>
           <td v-if="currentUser.id !== user.id">
-            <button type="button" class="btn btn-outline-info">Edit</button>
+            <router-link :to="`/admin/users/${user.id}`">
+              <button type="button" class="btn btn-outline-info">Edit</button>
+            </router-link>
             <button
               type="button"
               v-if="user.isAdmin"
