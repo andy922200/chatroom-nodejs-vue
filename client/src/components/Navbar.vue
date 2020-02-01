@@ -1,7 +1,7 @@
 // ./src/components/Navbar.vue
 <template>
   <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-    <router-link class="mx-auto navbar-brand" to="/chatroom">Chatroom</router-link>
+    <router-link class="navbar-brand" to="/chatroom">Chatroom</router-link>
 
     <button
       class="navbar-toggler"
