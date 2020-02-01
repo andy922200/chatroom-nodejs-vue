@@ -19,6 +19,9 @@
         <router-link v-if="currentUser.isAdmin" id="admin" to="/admin/users">
           <h4>管理員後台</h4>
         </router-link>
+        <button id="logout" type="button" class="btn btn-sm btn-outline-danger" @click="logout">
+          <h5>登出</h5>
+        </button>
         <a target="_blank" href="#">
           <font-awesome-icon :icon="['fab', 'github']" />
         </a>
@@ -29,11 +32,22 @@
 
 <script>
 import { mapState } from "vuex";
+import { Toast } from "./../utils/helpers";
 
 export default {
   name: "Navbar",
   computed: {
     ...mapState(["currentUser", "isAuthenticated"])
+  },
+  methods: {
+    logout() {
+      this.$store.commit("revokeAuthentication");
+      this.$router.push("/signin");
+      Toast.fire({
+        icon: "success",
+        title: "成功登出"
+      });
+    }
   }
 };
 </script>
@@ -48,6 +62,13 @@ export default {
 #navbarSupportedContent h4 {
   font-size: 20px;
   margin: 0px auto;
+}
+#logout {
+  padding-top: 4px;
+  margin-right: 10px;
+}
+#logout h5 {
+  margin-bottom: 0px;
 }
 @media (max-width: 991px) {
   .navbar-collapse {
