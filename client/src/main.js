@@ -3,12 +3,16 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-// intialize vue-font-awesome
+// initialize vue-font-awesome
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 library.add(faGithub)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
+// initialize scrollbar
+import PerfectScrollbar from 'vue2-perfect-scrollbar'
+import 'vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css'
+Vue.use(PerfectScrollbar)
 
 Vue.config.productionTip = false
 
