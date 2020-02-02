@@ -13,6 +13,17 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 import PerfectScrollbar from 'vue2-perfect-scrollbar'
 import 'vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css'
 Vue.use(PerfectScrollbar)
+// initialize vue-socket.io
+import VueSocketIO from 'vue-socket.io'
+Vue.use(new VueSocketIO({
+  debug: true,
+  connection: 'http://localhost:3000',
+  vuex: {
+    store,
+    actionPrefix: 'SOCKET_',
+    mutationPrefix: 'SOCKET_'
+  }
+}))
 
 Vue.config.productionTip = false
 
