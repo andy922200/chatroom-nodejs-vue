@@ -13,7 +13,7 @@
     </div>
     <br />
     <div class="container">
-      <perfect-scrollbar>
+      <perfect-scrollbar id="chat-window" :options="options">
         <div class="abc">
           <div class="messages">
             <ul class="list-unstyled">
@@ -53,6 +53,7 @@ import { mapState } from "vuex";
 import Navbar from "./../components/Navbar";
 import { Toast } from "./../utils/helpers";
 import { fromNowFilter } from "./../utils/mixins";
+import messageAPI from "./../apis/messages";
 
 export default {
   name: "Chatroom",
@@ -64,7 +65,8 @@ export default {
     return {
       message: "",
       messages: [],
-      inputHint: false
+      inputHint: false,
+      options: {}
     };
   },
   computed: {
@@ -81,8 +83,33 @@ export default {
         time: data.createdAt
       });
     });
+    this.fetchMessages();
   },
   methods: {
+    async fetchMessages() {
+      try {
+        const res = await messageAPI.getMessages();
+        const { data, statusText } = res;
+        console.log(data.messages);
+        if (statusText !== "OK") {
+          throw new Error();
+        }
+        data.messages.map(d => {
+          this.messages.push({
+            id: d.id,
+            name: d.User.name,
+            message: d.content,
+            UserId: d.User.id,
+            time: d.createdAt
+          });
+        });
+      } catch (err) {
+        Toast.fire({
+          icon: "error",
+          title: "暫時無法取得資料，請稍後再試"
+        });
+      }
+    },
     // client sends the message
     send() {
       if (this.message.match(/^\s+/) || !this.message) {
@@ -109,6 +136,12 @@ export default {
       } else {
         this.inputHint = false;
       }
+    },
+    messages: function() {
+      let objDiv = document.getElementById("chat-window");
+      this.$nextTick(() => {
+        objDiv.scrollTop = objDiv.scrollHeight;
+      });
     }
   }
 };
