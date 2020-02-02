@@ -53,8 +53,8 @@ io.on('connection', socket => {
   socket.on('getMessage', message => {
     console.log('服務端 接收 訊息: ', message);
 
-    //回傳 message 給客戶端
-    socket.emit('getMessage', message);
+    //回傳 message 給除自己外的客戶端
+    socket.broadcast.emit('getMessage', message);
   });
 
   // 連接斷開
