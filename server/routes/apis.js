@@ -5,6 +5,7 @@ const multer = require('multer')
 const upload = multer()
 const userController = require('../controller/api/userController')
 const adminController = require('../controller/api/adminController')
+const messageController = require('../controller/api/messageController')
 
 // for authentication
 const authenticated = passport.authenticate('jwt', { session: false })
@@ -29,5 +30,7 @@ router.post('/admin/users/create', authenticated, authenticatedAdmin, upload.arr
 router.put('/admin/users/:id/put-role', authenticated, authenticatedAdmin, adminController.putRole)
 router.delete('/admin/users/:id', authenticated, authenticatedAdmin, adminController.deleteUser)
 router.get(`/admin/users`, authenticated, authenticatedAdmin, adminController.getUsers)
+// getMessages
+router.get(`/messages`, authenticated, messageController.getMessages)
 
 module.exports = router
