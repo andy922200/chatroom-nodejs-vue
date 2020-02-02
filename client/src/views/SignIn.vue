@@ -3,7 +3,7 @@
   <div class="container py-5">
     <form class="w-100" @submit.prevent.stop="handleSubmit">
       <div class="text-center mb-4">
-        <h1 class="h3 mb-3 font-weight-normal">登入</h1>
+        <h1 class="h3 mb-3 font-weight-normal">聊天室登入</h1>
       </div>
 
       <div class="form-label-group mb-2">
