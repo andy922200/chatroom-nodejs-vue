@@ -13,6 +13,8 @@ if (process.env.NODE_ENV !== 'production') {
 }
 // 存取 database model
 const db = require('./models')
+const Message = db.Message
+const User = db.User
 // to set body-parser & methodOverride
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
@@ -47,18 +49,27 @@ const server = require('http').Server(app).listen(port, () => {
 })
 const io = require('socket.io')(server)
 io.on('connection', socket => {
-  console.log('連接成功，上線ID: ', socket.id);
+  console.log('連接成功，上線ID: ', socket.id)
 
   // 監聽訊息
-  socket.on('getMessage', message => {
-    console.log('服務端 接收 訊息: ', message);
-
-    //回傳 message 給除自己外的客戶端
-    socket.broadcast.emit('getMessage', message);
-  });
+  socket.on('getMessage', data => {
+    console.log('服務端 接收 訊息: ', data)
+    Message.create({
+      content: data.text,
+      UserId: data.UserId
+    }).then(message => {
+      Message.findByPk(message.id, {
+        include: [User],
+      })
+        .then(message => {
+          //回傳 message 給所有客戶端(包含自己)
+          io.sockets.emit('getMessage', message)
+        })
+    })
+  })
 
   // 連接斷開
   socket.on('disconnect', () => {
     console.log('有人離開了！， 下線ID: ', socket.id);
-  });
-});
+  })
+})
