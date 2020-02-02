@@ -94,6 +94,16 @@ export default {
           throw new Error();
         }
         data.messages.reverse().map(d => {
+          if (!d.User) {
+            d = {
+              id: d.id,
+              name: "此用戶已被刪除",
+              message: d.content,
+              UserId: d.UserId,
+              time: d.createdAt
+            };
+            this.messages.push(d);
+          }
           this.messages.push({
             id: d.id,
             name: d.User.name,
@@ -105,7 +115,7 @@ export default {
       } catch (err) {
         Toast.fire({
           icon: "error",
-          title: "暫時無法取得資料，請稍後再試"
+          title: err
         });
       }
     },
