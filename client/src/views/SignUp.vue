@@ -3,11 +3,11 @@
   <div class="container py-5">
     <form class="w-100" @submit.stop.prevent="handleSubmit">
       <div class="text-center mb-4">
-        <h1 class="h3 mb-3 font-weight-normal">Sign Up</h1>
+        <h1 class="h3 mb-3 font-weight-normal">註冊頁面</h1>
       </div>
 
       <div class="form-label-group mb-2">
-        <label for="name">Name</label>
+        <label for="name">名稱</label>
         <input
           id="name"
           v-model="name"
@@ -34,7 +34,7 @@
       </div>
 
       <div class="form-label-group mb-3">
-        <label for="password">Password</label>
+        <label for="password">密碼</label>
         <span
           class="warning"
           :style="{visibility: passwordHint ? 'visible' : 'hidden'}"
@@ -51,7 +51,7 @@
       </div>
 
       <div class="form-label-group mb-3">
-        <label for="password-check">Password Check</label>
+        <label for="password-check">再次輸入密碼</label>
         <span
           class="warning"
           :style="{visibility: passwordCheckHint ? 'visible' : 'hidden'}"
@@ -71,11 +71,11 @@
         class="btn btn-lg btn-primary btn-block mb-3"
         type="submit"
         :disabled="isProcessing"
-      >{{isProcessing ? "Processing..." : "Send"}}</button>
+      >{{isProcessing ? "處理中..." : "送出"}}</button>
 
       <div class="text-center mb-3">
         <p>
-          <router-link to="/signin">Sign In</router-link>
+          <router-link to="/signin">登入</router-link>
         </p>
       </div>
 

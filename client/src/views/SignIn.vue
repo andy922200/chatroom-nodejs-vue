@@ -3,11 +3,11 @@
   <div class="container py-5">
     <form class="w-100" @submit.prevent.stop="handleSubmit">
       <div class="text-center mb-4">
-        <h1 class="h3 mb-3 font-weight-normal">Sign In</h1>
+        <h1 class="h3 mb-3 font-weight-normal">登入</h1>
       </div>
 
       <div class="form-label-group mb-2">
-        <label for="email">email</label>
+        <label for="email">Email</label>
         <input
           id="email"
           v-model="email"
@@ -21,7 +21,7 @@
       </div>
 
       <div class="form-label-group mb-3">
-        <label for="password">Password</label>
+        <label for="password">密碼</label>
         <input
           id="password"
           v-model="password"
@@ -37,11 +37,11 @@
         class="btn btn-lg btn-primary btn-block mb-3"
         type="submit"
         :disabled="isProcessing"
-      >Submit</button>
+      >登入</button>
 
       <div class="text-center mb-3">
         <p>
-          <router-link to="/signup">Sign Up</router-link>
+          <router-link to="/signup">新會員註冊</router-link>
         </p>
       </div>
 
