@@ -41,6 +41,24 @@ if (process.env.NODE_ENV === 'production') {
   app.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'))
 }
 
-app.listen(port, () => {
+// 加入 socket.io 監聽
+const server = require('http').Server(app).listen(port, () => {
   console.log(`The app is listening on port ${port}`)
 })
+const io = require('socket.io')(server)
+io.on('connection', socket => {
+  console.log('連接成功，上線ID: ', socket.id);
+
+  // 監聽訊息
+  socket.on('getMessage', message => {
+    console.log('服務端 接收 訊息: ', message);
+
+    //回傳 message 給客戶端
+    socket.emit('getMessage', message);
+  });
+
+  // 連接斷開
+  socket.on('disconnect', () => {
+    console.log('有人離開了！， 下線ID: ', socket.id);
+  });
+});
