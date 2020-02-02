@@ -25,7 +25,7 @@
                 <div class="name">
                   <h5>{{message.name}}</h5>
                   <span>{{message.message}}</span>
-                  <h6>@{{message.time}}</h6>
+                  <h6>@{{message.time|fromNow}}</h6>
                 </div>
               </li>
             </ul>
@@ -43,6 +43,7 @@
           </div>
         </form>
       </div>
+      <p class="warning" :style="{visibility: inputHint ? 'visible' : 'hidden'}">請檢查輸入欄位是否有空白</p>
     </div>
   </div>
 </template>
@@ -50,52 +51,65 @@
 <script>
 import { mapState } from "vuex";
 import Navbar from "./../components/Navbar";
+import { Toast } from "./../utils/helpers";
+import { fromNowFilter } from "./../utils/mixins";
 
 export default {
   name: "Chatroom",
   components: {
     Navbar
   },
+  mixins: [fromNowFilter],
   data() {
     return {
       message: "",
-      messages: [
-        {
-          id: -1,
-          name: "test",
-          message: "this is a test.",
-          time: "2001-01-01"
-        },
-        {
-          id: -2,
-          name: "test",
-          message: "this is a test.",
-          time: "2001-01-01"
-        },
-        { id: -3, name: "root", message: "Admin Root.", time: "2001-01-01" },
-        {
-          id: -4,
-          name: "root",
-          message: "Admin Root AAA.",
-          time: "2001-01-02"
-        },
-        {
-          id: -5,
-          name: "root",
-          message: "Admin Root AAA.",
-          time: "2001-01-02"
-        },
-        {
-          id: -6,
-          name: "root",
-          message: "Admin Root AAA.",
-          time: "2001-01-02"
-        }
-      ]
+      messages: [],
+      inputHint: false
     };
   },
   computed: {
     ...mapState(["currentUser", "isAuthenticated"])
+  },
+  created() {
+    // client receives the message
+    this.sockets.subscribe("getMessage", data => {
+      this.messages.push({
+        id: data.id,
+        name: data.User.name,
+        message: data.content,
+        UserId: data.User.id,
+        time: data.createdAt
+      });
+    });
+  },
+  methods: {
+    // client sends the message
+    send() {
+      if (this.message.match(/^\s+/) || !this.message) {
+        Toast.fire({
+          icon: "warning",
+          title: "請確認開頭不要有空白字元"
+        });
+        this.message = "";
+        return;
+      } else {
+        this.$socket.emit("getMessage", {
+          text: this.message,
+          UserId: this.currentUser.id,
+          name: this.currentUser.name
+        });
+        this.message = "";
+      }
+    }
+  },
+  watch: {
+    message: function() {
+      if (this.message.match(/^\s+/)) {
+        this.inputHint = true;
+      } else {
+        this.inputHint = false;
+      }
+    }
   }
 };
 </script>
@@ -138,5 +152,11 @@ export default {
 }
 .input {
   margin: 20px auto;
+}
+.warning {
+  margin-left: 5px;
+  color: red;
+  font-size: 18px;
+  font-weight: bold;
 }
 </style>
