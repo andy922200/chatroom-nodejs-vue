@@ -90,11 +90,10 @@ export default {
       try {
         const res = await messageAPI.getMessages();
         const { data, statusText } = res;
-        console.log(data.messages);
         if (statusText !== "OK") {
           throw new Error();
         }
-        data.messages.map(d => {
+        data.messages.reverse().map(d => {
           this.messages.push({
             id: d.id,
             name: d.User.name,

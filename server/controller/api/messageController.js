@@ -6,7 +6,7 @@ let messageController = {
   getMessages: (req, res) => {
     Message.findAll({
       limit: 20,
-      order: [['createdAt', 'ASC']],
+      order: [['createdAt', 'DESC']],
       include: [User]
     }).then(messages => {
       return res.json({ messages: messages })
