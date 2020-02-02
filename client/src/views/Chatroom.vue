@@ -80,13 +80,13 @@ export default {
           time: "2001-01-02"
         },
         {
-          id: -4,
+          id: -5,
           name: "root",
           message: "Admin Root AAA.",
           time: "2001-01-02"
         },
         {
-          id: -4,
+          id: -6,
           name: "root",
           message: "Admin Root AAA.",
           time: "2001-01-02"
