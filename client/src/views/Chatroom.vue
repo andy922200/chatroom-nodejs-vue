@@ -14,7 +14,7 @@
     <br />
     <div class="container">
       <perfect-scrollbar id="chat-window" :options="options">
-        <div class="abc">
+        <div class="chat">
           <div class="messages">
             <ul class="list-unstyled">
               <li
@@ -146,7 +146,7 @@ export default {
 };
 </script>
 <style scoped>
-.abc {
+.chat {
   height: 400px;
 }
 .top {
