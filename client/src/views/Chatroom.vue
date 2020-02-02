@@ -8,7 +8,7 @@
     <br />
     <br />
     <div class="top">
-      <h4>請暢所欲言</h4>
+      <h4>哈囉，{{currentUser.name}}：請暢所欲言</h4>
       <h5 v-if="currentUser.isAdmin === true">您具有管理員資格</h5>
     </div>
     <br />
