@@ -22,7 +22,7 @@
         <button id="logout" type="button" class="btn btn-sm btn-outline-danger" @click="logout">
           <h5>登出</h5>
         </button>
-        <a target="_blank" href="#">
+        <a target="_blank" href="https://github.com/andy922200/chatroom-nodejs-vue">
           <font-awesome-icon :icon="['fab', 'github']" />
         </a>
       </div>
