@@ -71,13 +71,26 @@ const router = new VueRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-  const token = localStorage.getItem('token')
-  let isAuthenticated = false
-  if (token) {
+  const tokenInStore = store.state.token
+  const tokenInLocalStorage = localStorage.getItem('token')
+  let isAuthenticated = store.state.isAuthenticated
+  // compare the difference between the local and the store
+  // if true, fetchCurrentUser
+  if (tokenInLocalStorage && tokenInLocalStorage !== tokenInStore) {
     isAuthenticated = await store.dispatch('fetchCurrentUser')
-    console.log("isAuthenticated", isAuthenticated)
   }
-
+  // exclude signUp page
+  const pathsWithoutAuthentication = ['signUp']
+  if (pathsWithoutAuthentication.includes(to.name)) {
+    next()
+    return
+  }
+  // if user is not authenticated, redirect to signin
+  // signin page should be excluded!
+  if (!isAuthenticated && to.name !== 'signIn') {
+    next('/signin')
+    return
+  }
   next()
 })
 
