@@ -6,7 +6,7 @@
 
 <h3 align="center"> Real-time public chatroom </h3>
 <h3 align="center"> 即時聊天室</h3>
-<a href="#">
+<a href="https://chatroom-sml.herokuapp.com/">
   <p align="center">Click here to the demo site</p>
 </a>
 
