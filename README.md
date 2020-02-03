@@ -20,6 +20,8 @@
 <p>A real-time web application built by Socket.io, Node.js, Vue.js, MySQL, and etc.</p>
 <p>一個應用即時聊天程式，運用 Socket.io / Node.js / Vue.js / MySQL 等套件組合而成。</p>
 
+- [開發詳述過程 ＠Blog](https://smlpoints.com/build-a-public-chatroom-with-vue-mysql-socketio-passport-jwt.html)
+
 ## How to use
 **Website 網站**
 <p>After logging in, enter what you would like to say in the public chatroom. Everyone ( including yourself ) can see all messages without refreshing the page.</p>
