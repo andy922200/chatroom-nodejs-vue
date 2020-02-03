@@ -11,7 +11,8 @@
       </router-link>
     </div>
     <br />
-    <table class="table">
+    <Spinner v-if="isLoading" />
+    <table v-else class="table">
       <thead class="thead-light">
         <tr>
           <th scope="col">#</th>
@@ -62,15 +63,18 @@ import { mapState } from "vuex";
 import Navbar from "./../components/Navbar";
 import adminAPI from "./../apis/admin";
 import { Toast } from "./../utils/helpers";
+import Spinner from "./../components/Spinner";
 
 export default {
   name: "AdminUsers",
   components: {
-    Navbar
+    Navbar,
+    Spinner
   },
   data() {
     return {
-      users: []
+      users: [],
+      isLoading: true
     };
   },
   created() {
@@ -85,7 +89,9 @@ export default {
           throw new Error();
         }
         this.users = data.users;
+        this.isLoading = false;
       } catch (err) {
+        this.isLoading = false;
         Toast.fire({
           icon: "error",
           title: "暫時無法取得資料，請稍後再試"
