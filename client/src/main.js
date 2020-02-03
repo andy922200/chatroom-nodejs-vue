@@ -16,7 +16,6 @@ Vue.use(PerfectScrollbar)
 // initialize vue-socket.io
 import VueSocketIO from 'vue-socket.io'
 Vue.use(new VueSocketIO({
-  debug: true,
   //connection: 'http://localhost:3000',
   connection: 'https://chatroom-sml.herokuapp.com/',
   vuex: {
