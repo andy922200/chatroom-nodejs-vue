@@ -9,7 +9,8 @@ let adminController = {
     User.findAll({
       attributes: {
         exclude: ['password']
-      }
+      },
+      order: [['id', 'ASC']]
     }).then(users => {
       return res.json({ users: users })
     })
