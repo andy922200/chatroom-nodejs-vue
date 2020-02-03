@@ -4,7 +4,8 @@
     <br />
     <br />
     <br />
-    <AdminCreateForm :initial-user="user" @after-submit="handleAfterSubmit" />
+    <Spinner v-if="isLoading" />
+    <AdminCreateForm v-else :initial-user="user" @after-submit="handleAfterSubmit" />
   </div>
 </template>
 
@@ -14,12 +15,14 @@ import Navbar from "./../components/Navbar";
 import AdminCreateForm from "./../components/AdminEditForm";
 import adminAPI from "./../apis/admin";
 import { Toast } from "./../utils/helpers";
+import Spinner from "./../components/Spinner";
 
 export default {
   name: "AdminEditUser",
   components: {
     Navbar,
-    AdminCreateForm
+    AdminCreateForm,
+    Spinner
   },
   data() {
     return {
@@ -27,7 +30,8 @@ export default {
         id: -1,
         name: "",
         isAdmin: -1
-      }
+      },
+      isLoading: true
     };
   },
   computed: {
@@ -46,7 +50,9 @@ export default {
           throw new Error(data.message);
         }
         this.user = data.user;
+        this.isLoading = false;
       } catch (err) {
+        this.isLoading = false;
         Toast.fire({
           icon: "error",
           title: err
