@@ -50,6 +50,10 @@ const server = require('http').Server(app).listen(port, () => {
 const io = require('socket.io')(server)
 io.on('connection', socket => {
   console.log('連接成功，上線ID: ', socket.id)
+  //監聽並提示有人上線了
+  socket.on('onlineHint', userName => {
+    socket.broadcast.emit('onlineHint', userName)
+  })
 
   // 監聽訊息
   socket.on('getMessage', data => {
@@ -66,6 +70,11 @@ io.on('connection', socket => {
           io.sockets.emit('getMessage', message)
         })
     })
+  })
+
+  //監聽並提示有人下線了
+  socket.on('offlineHint', userName => {
+    socket.broadcast.emit('offlineHint', userName)
   })
 
   // 連接斷開

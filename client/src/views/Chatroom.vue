@@ -10,6 +10,8 @@
     <div class="top">
       <h4>哈囉，{{currentUser.name}}：請暢所欲言</h4>
       <h5 v-if="currentUser.isAdmin === true">您具有管理員資格</h5>
+      <h6 v-if="onlineHint">Hi，方才{{loggedInUser}}上線囉</h6>
+      <h6 v-if="offlineHint">Ooops，方才{{logoutUser}}離線囉</h6>
     </div>
     <br />
     <div class="container">
@@ -66,7 +68,11 @@ export default {
       message: "",
       messages: [],
       inputHint: false,
-      options: {}
+      options: {},
+      onlineHint: false,
+      offlineHint: false,
+      loggedInUser: "",
+      logoutUser: ""
     };
   },
   computed: {
@@ -82,6 +88,16 @@ export default {
         UserId: data.User.id,
         time: data.createdAt
       });
+    });
+    this.sockets.subscribe("onlineHint", loggedInUser => {
+      this.loggedInUser = loggedInUser;
+      this.onlineHint = true;
+      setTimeout(() => (this.onlineHint = false), 5000);
+    });
+    this.sockets.subscribe("offlineHint", logoutUser => {
+      this.logoutUser = logoutUser;
+      this.offlineHint = true;
+      setTimeout(() => (this.offlineHint = false), 5000);
     });
     this.fetchMessages();
   },

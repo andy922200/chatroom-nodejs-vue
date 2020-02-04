@@ -41,6 +41,7 @@ export default {
   },
   methods: {
     logout() {
+      this.$socket.emit("offlineHint", this.currentUser.name);
       this.$store.commit("revokeAuthentication");
       this.$router.push("/signin");
       Toast.fire({

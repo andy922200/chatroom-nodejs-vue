@@ -89,6 +89,8 @@ export default {
         localStorage.setItem("token", data.token);
         /* 將資料傳到 Vuex 中 */
         this.$store.commit("setCurrentUser", data.user);
+        /* 傳送登入成功給 socket.io*/
+        this.$socket.emit("onlineHint", data.user.name);
         // redirect to chatroom
         this.$router.push("/chatroom");
       } catch (err) {
