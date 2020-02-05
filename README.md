@@ -35,10 +35,12 @@
 - [axios](https://github.com/axios/axios) - Promise based HTTP client for the browser and node.js
 - [bootstrap](https://getbootstrap.com/) - Build responsive, mobile-first projects on the web with the world’s most popular front-end component library.
 - [sweetalert2](https://sweetalert2.github.io/) - A beautiful, responsive, customizable popup boxes
+- [Vue-socket.io](https://www.npmjs.com/package/vue-socket.io) - This is an integration for Vuejs, easy to use, supporting Vuex and component level socket consumer managements.
 
 **Back End**
 - [cors](https://www.npmjs.com/package/cors) - To activate Cross-Origin Resource Sharing
 - [faker](https://www.npmjs.com/package/faker) - To generate the seed data for testing
+- [socket.io](https://www.npmjs.com/package/socket.io) - "Socket IO" enables real-time bidirectional event-based communication.
 
 ## Run the local server
 ### Prerequisites
