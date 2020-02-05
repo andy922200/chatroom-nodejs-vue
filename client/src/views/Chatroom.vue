@@ -210,11 +210,22 @@ export default {
 }
 .input {
   margin: 20px auto;
+  background-color: gray;
 }
 .warning {
   margin-left: 5px;
   color: red;
   font-size: 18px;
   font-weight: bold;
+}
+@media screen and (max-width: 359px) {
+  .chat {
+    height: 250px;
+  }
+}
+@media screen and (max-width: 410px) {
+  .chat {
+    height: 340px;
+  }
 }
 </style>

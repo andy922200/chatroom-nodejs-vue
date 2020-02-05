@@ -7,54 +7,56 @@
     <br />
     <div class="row justify-content-center">
       <router-link to="/admin/users/create">
-        <button type="submit" class="btn btn-outline-primary">Add User</button>
+        <button type="submit" id="addUser" class="btn btn-outline-primary">Add User</button>
       </router-link>
     </div>
     <br />
-    <Spinner v-if="isLoading" />
-    <table v-else class="table">
-      <thead class="thead-light">
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Name</th>
-          <th scope="col">Email</th>
-          <th scope="col" width="30">Role</th>
-          <th scope="col" width="280">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="user in users" :key="user.id">
-          <th scope="row">{{user.id}}</th>
-          <td>{{user.name}}</td>
-          <td>{{user.email}}</td>
-          <td v-if="user.isAdmin">Admin</td>
-          <td v-else>User</td>
-          <td v-if="currentUser.id !== user.id">
-            <router-link :to="`/admin/users/${user.id}`">
-              <button type="button" class="btn btn-outline-info">Edit</button>
-            </router-link>
-            <button
-              type="button"
-              v-if="user.isAdmin"
-              class="btn btn-outline-secondary"
-              @click.stop.prevent="toggleUserRole({userId:user.id,isAdmin:user.isAdmin})"
-            >Set as user</button>
-            <button
-              type="button"
-              v-else
-              class="btn btn-outline-primary"
-              @click.stop.prevent="toggleUserRole({userId:user.id,isAdmin:user.isAdmin})"
-            >Set as admin</button>
-            <button
-              type="button"
-              class="btn btn-outline-danger"
-              @click.stop.prevent="deleteUser({userId:user.id})"
-            >Delete</button>
-          </td>
-          <td v-else></td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-responsive-sm">
+      <Spinner v-if="isLoading" />
+      <table v-else class="table">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <!--<th scope="col">Email</th>-->
+            <th scope="col" width="30">Role</th>
+            <th scope="col" width="280">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="user in users" :key="user.id">
+            <th scope="row">{{user.id}}</th>
+            <td>{{user.name}}</td>
+            <!--<td>{{user.email}}</td>-->
+            <td v-if="user.isAdmin">Admin</td>
+            <td v-else>User</td>
+            <td v-if="currentUser.id !== user.id">
+              <router-link :to="`/admin/users/${user.id}`">
+                <button type="button" class="btn btn-outline-info">Edit</button>
+              </router-link>
+              <button
+                type="button"
+                v-if="user.isAdmin"
+                class="btn btn-outline-secondary"
+                @click.stop.prevent="toggleUserRole({userId:user.id,isAdmin:user.isAdmin})"
+              >Set as user</button>
+              <button
+                type="button"
+                v-else
+                class="btn btn-outline-primary"
+                @click.stop.prevent="toggleUserRole({userId:user.id,isAdmin:user.isAdmin})"
+              >Set as admin</button>
+              <button
+                type="button"
+                class="btn btn-outline-danger"
+                @click.stop.prevent="deleteUser({userId:user.id})"
+              >Delete</button>
+            </td>
+            <td v-else></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -152,19 +154,23 @@ export default {
 
 <style scoped>
 .btn-outline-secondary {
-  padding-right: 18px;
-  padding-left: 18px;
+  padding-right: 20px;
+  padding-left: 20px;
 }
 @media screen and (max-width: 767px) {
+  #addUser {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
   .btn-outline-primary {
     font-size: 16px;
-    padding-right: 2px;
-    padding-left: 2px;
+    padding-right: 1px;
+    padding-left: 1px;
   }
   .btn-outline-secondary {
     font-size: 16px;
-    padding-right: 6px;
-    padding-left: 6px;
+    padding-right: 7px;
+    padding-left: 7px;
   }
 }
 </style>
