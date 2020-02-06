@@ -19,6 +19,7 @@ import Spinner from "./../components/Spinner";
 
 export default {
   name: "AdminEditUser",
+  inject: ["reload"],
   components: {
     Navbar,
     AdminCreateForm,
@@ -66,7 +67,7 @@ export default {
           formData,
           userId
         });
-        if (statusText !== "OK") {
+        if (statusText !== "OK" || data.status !== "success") {
           throw new Error(data.message);
         }
         Toast.fire({
@@ -79,6 +80,7 @@ export default {
           icon: "error",
           title: err
         });
+        this.reload();
       }
     }
   }

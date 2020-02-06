@@ -18,6 +18,7 @@ import { Toast } from "./../utils/helpers";
 
 export default {
   name: "AdminCreateUser",
+  inject: ["reload"],
   components: {
     Navbar,
     AdminCreateForm
@@ -43,6 +44,7 @@ export default {
           icon: "error",
           title: err
         });
+        this.reload();
       }
     }
   }
