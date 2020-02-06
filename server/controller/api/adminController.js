@@ -46,17 +46,27 @@ let adminController = {
       })
   },
   putUser: (req, res) => {
-    User.findByPk(req.params.id).then(user => {
-      const { name, email, password, isAdmin } = req.body
-      user.update({
-        name: name,
-        email: email,
-        password: bcrypt.hashSync(password, bcrypt.genSaltSync(10), null),
-        isAdmin: isAdmin
-      }).then(user => {
-        return res.json({ status: 'success', message: 'Update successfully!' })
+    if (req.body.password !== req.body.passwordCheck) {
+      return res.json({ status: 'error', message: 'Two Passwords do not match!' })
+    }
+    User.findOne({ where: { email: req.body.email } })
+      .then(user => {
+        if (user.id === Number(req.params.id)) {
+          User.findByPk(req.params.id).then(user => {
+            const { name, email, password, isAdmin } = req.body
+            user.update({
+              name: name,
+              email: email,
+              password: bcrypt.hashSync(password, bcrypt.genSaltSync(10), null),
+              isAdmin: isAdmin
+            }).then(user => {
+              return res.json({ status: 'success', message: 'Update successfully!' })
+            })
+          })
+        } else {
+          return res.json({ status: 'error', message: 'The email has already used!' })
+        }
       })
-    })
   },
   putRole: (req, res) => {
     User.findByPk(req.params.id).then(user => {
