@@ -129,10 +129,11 @@ export default {
           });
         });
       } catch (err) {
-        Toast.fire({
+        console.log(err);
+        /*Toast.fire({
           icon: "error",
           title: err
-        });
+        });*/
       }
     },
     // client sends the message
