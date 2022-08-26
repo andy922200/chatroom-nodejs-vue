@@ -38,6 +38,7 @@ require('./routes/')(app)
 
 // production mode 前端路由
 if (process.env.NODE_ENV === 'production') {
+  console.log('process.env', process.env)
   // static folder
   app.use(express.static(__dirname + '/public/'))
   app.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'))

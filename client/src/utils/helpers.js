@@ -3,7 +3,7 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 
 //const baseURL = 'http://localhost:3000/api'
-const baseURL = 'https://chatroom-sml.herokuapp.com/api'
+const baseURL = 'https://chatroom-nodejs-vue.onrender.com/api'
 
 export const apiHelper = axios.create({
   baseURL

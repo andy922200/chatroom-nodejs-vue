@@ -5,7 +5,7 @@ module.exports = {
   devServer: {
     proxy: {
       '/api': {
-        // target: 'https://chatroom-sml.herokuapp.com/'
+        target: 'https://chatroom-nodejs-vue.onrender.com/'
         // target: 'http://localhost:3000'
       }
     },

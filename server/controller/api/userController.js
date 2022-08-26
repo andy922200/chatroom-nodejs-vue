@@ -8,9 +8,11 @@ let userController = {
   signIn: (req, res) => {
     let username = req.body.email
     let password = req.body.password
+    console.log('here1')
     User.findOne({
       where: { email: username }
     }).then(user => {
+      console.log('here2', user)
       if (!user) return res.status(401).json({ status: 'error', message: 'No user was found.' })
       if (!bcrypt.compareSync(password, user.password)) {
         return res.status(401).json({ status: 'error', message: 'The password did not match.' })
@@ -29,6 +31,9 @@ let userController = {
         },
         isAuthenticated: true
       })
+    })
+    .catch(e=>{
+      console.log('e',e)
     })
   },
   signUp: (req, res) => {
