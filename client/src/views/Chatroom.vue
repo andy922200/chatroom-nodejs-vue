@@ -119,14 +119,15 @@ export default {
               time: d.createdAt
             };
             this.messages.push(d);
+          }else{
+            this.messages.push({
+              id: d.id,
+              name: d.User.name,
+              message: d.content,
+              UserId: d.User.id,
+              time: d.createdAt
+            });
           }
-          this.messages.push({
-            id: d.id,
-            name: d.User.name,
-            message: d.content,
-            UserId: d.User.id,
-            time: d.createdAt
-          });
         });
       } catch (err) {
         console.log(err);

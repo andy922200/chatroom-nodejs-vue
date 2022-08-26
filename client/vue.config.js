@@ -5,8 +5,8 @@ module.exports = {
   devServer: {
     proxy: {
       '/api': {
-        target: 'https://chatroom-sml.herokuapp.com/'
-        //target: 'http://localhost:3000'
+        // target: 'https://chatroom-sml.herokuapp.com/'
+        // target: 'http://localhost:3000'
       }
     },
   }
