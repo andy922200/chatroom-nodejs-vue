@@ -85,12 +85,10 @@ export default {
   methods: {
     async fetchUsers() {
       try {
-        const res = await adminAPI.getUsers();
-        const { data, statusText } = res;
-        if (statusText !== "OK") {
-          throw new Error();
+        const { data } = await adminAPI.getUsers();
+        if(Array.isArray(data)){
+          this.users = data.users;
         }
-        this.users = data.users;
         this.isLoading = false;
       } catch (err) {
         this.isLoading = false;
@@ -104,21 +102,21 @@ export default {
       const toBeAdmin = !isAdmin;
       try {
         const res = await adminAPI.putRole({ userId });
-        const { statusText } = res;
-        if (statusText !== "OK") {
-          throw new Error(statusText);
-        }
-        this.users = this.users.map(user => {
+        if(res?.data?.user){
+          this.users = this.users.map(user => {
           if (user.id !== userId) return user;
-          return {
-            ...user,
-            isAdmin: toBeAdmin
-          };
-        });
-        Toast.fire({
-          icon: "success",
-          title: "更新權限成功"
-        });
+            return {
+              ...user,
+              isAdmin: toBeAdmin
+            };
+          });
+          Toast.fire({
+            icon: "success",
+            title: "更新權限成功"
+          });
+        }else{
+          throw new Error()
+        }
       } catch (err) {
         Toast.fire({
           icon: "error",
@@ -129,15 +127,15 @@ export default {
     async deleteUser({ userId }) {
       try {
         const res = await adminAPI.deleteUser({ userId });
-        const { statusText } = res;
-        if (statusText !== "OK") {
-          throw new Error(statusText);
+        if(res?.data?.user){
+          this.users = this.users.filter(user => user.id !== userId);
+          Toast.fire({
+            icon: "success",
+            title: `刪除成功`
+          });
+        }else{
+          throw new Error();
         }
-        this.users = this.users.filter(user => user.id !== userId);
-        Toast.fire({
-          icon: "success",
-          title: `刪除成功`
-        });
       } catch (err) {
         Toast.fire({
           icon: "error",

@@ -79,7 +79,7 @@
         </p>
       </div>
 
-      <p class="mt-5 mb-3 text-muted text-center">&copy; 2019-2020</p>
+      <p class="mt-5 mb-3 text-muted text-center">&copy; 2019-2022</p>
     </form>
   </div>
 </template>
@@ -136,14 +136,14 @@ export default {
           this.isProcessing = false;
           return;
         }
-        const { data, statusText } = await authorizationAPI.signUp({
+        const { data } = await authorizationAPI.signUp({
           name: this.name,
           email: this.email,
           password: this.password,
           passwordCheck: this.passwordCheck
         });
 
-        if (statusText !== "OK" || data.status !== "success") {
+        if (data.status !== "success") {
           throw new Error(data.message);
         }
         // redirect to /signin if the status is success`

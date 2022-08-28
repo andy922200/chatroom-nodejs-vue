@@ -105,10 +105,7 @@ export default {
     async fetchMessages() {
       try {
         const res = await messageAPI.getMessages();
-        const { data, statusText } = res;
-        if (statusText !== "OK") {
-          throw new Error();
-        }
+        const { data } = res;
         data.messages.reverse().map(d => {
           if (!d.User) {
             d = {

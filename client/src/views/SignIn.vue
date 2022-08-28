@@ -81,9 +81,9 @@ export default {
           password: this.password
         });
 
-        const { data, statusText } = res;
-        if (statusText !== "OK" || data.status !== "success") {
-          throw new Error(statusText);
+        const { data } = res;
+        if (data.status !== "success") {
+          throw new Error();
         }
         /* store token in localStorage */
         localStorage.setItem("token", data.token);

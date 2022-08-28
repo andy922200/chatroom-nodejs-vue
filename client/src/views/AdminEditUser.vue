@@ -46,11 +46,12 @@ export default {
     async fetchUser(userId) {
       try {
         const res = await adminAPI.getUser({ userId });
-        const { data, statusText } = res;
-        if (statusText !== "OK") {
+        const { data } = res;
+        if(data?.user){
+          this.user = data.user;
+        }else{
           throw new Error(data.message);
-        }
-        this.user = data.user;
+        }        
         this.isLoading = false;
       } catch (err) {
         this.isLoading = false;
@@ -63,11 +64,11 @@ export default {
     async handleAfterSubmit(formData) {
       try {
         const userId = this.user.id;
-        const { data, statusText } = await adminAPI.putUser({
+        const { data } = await adminAPI.putUser({
           formData,
           userId
         });
-        if (statusText !== "OK" || data.status !== "success") {
+        if (data.status !== "success") {
           throw new Error(data.message);
         }
         Toast.fire({

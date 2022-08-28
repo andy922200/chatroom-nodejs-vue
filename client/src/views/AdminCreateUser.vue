@@ -29,8 +29,8 @@ export default {
   methods: {
     async handleAfterSubmit(formData) {
       try {
-        const { data, statusText } = await adminAPI.postUser({ formData });
-        if (statusText !== "OK" || data.status !== "success") {
+        const { data } = await adminAPI.postUser({ formData });
+        if (data.status !== "success") {
           throw new Error(data.message);
         }
         // redirect to /admin/users if the status is success`
