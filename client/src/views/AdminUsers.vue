@@ -86,7 +86,7 @@ export default {
     async fetchUsers() {
       try {
         const { data } = await adminAPI.getUsers();
-        if(Array.isArray(data)){
+        if(Array.isArray(data.users)){
           this.users = data.users;
         }
         this.isLoading = false;
@@ -102,7 +102,7 @@ export default {
       const toBeAdmin = !isAdmin;
       try {
         const res = await adminAPI.putRole({ userId });
-        if(res?.data?.user){
+        if(res?.data?.status !== "success"){
           this.users = this.users.map(user => {
           if (user.id !== userId) return user;
             return {
@@ -127,7 +127,7 @@ export default {
     async deleteUser({ userId }) {
       try {
         const res = await adminAPI.deleteUser({ userId });
-        if(res?.data?.user){
+        if(res?.status !== "success"){
           this.users = this.users.filter(user => user.id !== userId);
           Toast.fire({
             icon: "success",
